@@ -1,47 +1,22 @@
-"
-""""""""""""""Config
-"
 call plug#begin('~/.vim/plugged')
-Plug 'morhetz/gruvbox'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'fatih/vim-go', { 'tag': '*' }
-Plug 'itchyny/lightline.vim'
-Plug 'preservim/nerdtree'
-Plug 'flazz/vim-colorschemes'
-Plug 'chriskempson/base16-vim'
+Plug 'ervandew/supertab'
+Plug 'arakashic/chromatica.nvim'
 Plug 'junegunn/fzf'
 Plug 'jiangmiao/auto-pairs'
-Plug 'neoclide/coc.nvim'
-Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/deoplete-lsp', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/deoplete.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 call plug#end()
 
-"Base
-colorscheme base16-default-dark
-set backspace=indent,eol,start
-set t_kb=^?
-set t_kD=^[[3~
-set guifont=Consolas:h20
-set laststatus=2
-set runtimepath+=$GOROOT/misc/vim
-set number
-filetype on
-filetype plugin indent off
-filetype plugin indent on
-
-"Golang stuff?
-if !has('gui_running')
-	set t_Co=256
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
 endif
-let g:go_highlight_structs = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-syntax on
 
-""Lightline
-let g:lightline = {
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ }
+let g:deoplete#enable_at_startup = 1
+let g:SuperTabDefaultCompletetionType = "<c-n>"
+let g:chromatica#enable_at_startup=1
+let g:chromatica#libclang_path='/usr/lib/llvm-7/lib'
+syntax enable
+set rnu nu
+lua require'nvim_lsp'.ccls.setup{}
