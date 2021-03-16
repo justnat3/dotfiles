@@ -1,22 +1,36 @@
-call plug#begin('~/.vim/plugged')
-Plug 'ervandew/supertab'
-Plug 'arakashic/chromatica.nvim'
-Plug 'junegunn/fzf'
-Plug 'jiangmiao/auto-pairs'
-Plug 'Shougo/deoplete-lsp', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/deoplete.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+all plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'codota/tabnine-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'sainnhe/gruvbox-material'
 call plug#end()
 
-if $COLORTERM == 'gnome-terminal'
-  set t_Co=256
-endif
+" to make gruvbox work
+set termguicolors
+let g:gruvbox_termcolors=16
+colorscheme gruvbox-material
+set background=dark
 
-let g:deoplete#enable_at_startup = 1
-let g:SuperTabDefaultCompletetionType = "<c-n>"
-let g:chromatica#enable_at_startup=1
-let g:chromatica#libclang_path='/usr/lib/llvm-7/lib'
-syntax enable
-set rnu nu
-lua require'nvim_lsp'.ccls.setup{}
+" Direct swp files
+set directory^=$HOME/.vim/tmp.//
+
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set nu
+
+" Set up extra chars
+set list
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+
+" FZF key bindings
+nnoremap <C-f> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-i': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Syntax Highlighting for svelte and html
+au BufReadPost *.svelte set syntax=html
+au BufReadPost *.html set syntax=html
