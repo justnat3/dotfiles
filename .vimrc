@@ -34,3 +34,5 @@ let g:fzf_action = {
 " Syntax Highlighting for svelte and html
 au BufReadPost *.svelte set syntax=html
 au BufReadPost *.html set syntax=html
+
+autocmd BufWritePre * %s/\s\+$//e
